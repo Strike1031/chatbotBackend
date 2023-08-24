@@ -1,0 +1,11 @@
+tiktoken
+gunicorn
+uvicorn
+langchain
+Flask
+Flask_Cors
+pinecone_client
+openai
+python-dotenv
+pydantic==1.10.11
+
