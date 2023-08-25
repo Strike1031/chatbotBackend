@@ -39,7 +39,8 @@ load_dotenv()
 
 # setting keys and environments
 
-os.environ['OPENAI_API_KEY'] = os.environ.get('OPENAI_API_KEY')
+# os.environ['OPENAI_API_KEY'] = os.environ.get('OPENAI_API_KEY')
+os.environ['OPENAI_API_KEY'] = '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'
 os.environ["SERPER_API_KEY"] = os.environ.get('SERPER_API_KEY')
 pinecone_api_key = os.environ.get('pinecone_api_key')
 pinecone_environment = os.environ.get('pinecone_environment')
