@@ -40,10 +40,10 @@ load_dotenv()
 # setting keys and environments
 
 # os.environ['OPENAI_API_KEY'] = os.environ.get('OPENAI_API_KEY')
-os.environ['OPENAI_API_KEY'] = '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'
-os.environ["SERPER_API_KEY"] = os.environ.get('SERPER_API_KEY')
-pinecone_api_key = os.environ.get('pinecone_api_key')
-pinecone_environment = os.environ.get('pinecone_environment')
+os.environ['OPENAI_API_KEY'] = "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"
+os.environ["SERPER_API_KEY"] = "f3b784c2667848e4b562af080d7a6ac397984cbd"
+pinecone_api_key = "50f2bb6e-12f5-4b29-9c5f-546cf631a64b"
+pinecone_environment = "us-west1-gcp-free"
 
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 llm = ChatOpenAI(
