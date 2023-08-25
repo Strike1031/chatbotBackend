@@ -39,10 +39,11 @@ load_dotenv()
 
 # setting keys and environments
 
-os.environ['OPENAI_API_KEY'] = os.environ.get('OPENAI_API_KEY')
-os.environ["SERPER_API_KEY"] = os.environ.get('SERPER_API_KEY')
-pinecone_api_key = os.environ.get('pinecone_api_key')
-pinecone_environment = os.environ.get('pinecone_environment')
+# os.environ['OPENAI_API_KEY'] = "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"
+os.environ['OPENAI_API_KEY'] = "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"
+os.environ["SERPER_API_KEY"] = "f3b784c2667848e4b562af080d7a6ac397984cbd"
+pinecone_api_key = "50f2bb6e-12f5-4b29-9c5f-546cf631a64b"
+pinecone_environment = "us-west1-gcp-free"
 
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 llm = ChatOpenAI(
@@ -149,34 +150,35 @@ tools = [
     ),
 ]
 
-agent = initialize_agent(
-    agent='chat-conversational-react-description',
-    tools=tools,
-    llm=llm,
-    verbose=True,
-    max_iterations=3,
-    early_stopping_method='generate',
-    memory=conversational_memory,
-)
+# agent = initialize_agent(
+#     agent='chat-conversational-react-description',
+#     tools=tools,
+#     llm=llm,
+#     verbose=True,
+#     max_iterations=3,
+#     early_stopping_method='generate',
+#     memory=conversational_memory,
+# )
 
 user_conversations = {}
 
 def get_response(user_id, text):
     if user_id not in user_conversations:
         # Initialize conversation history for new user
-        user_conversations[user_id] = []
+        user_conversations[user_id] =  initialize_agent(
+            agent='chat-conversational-react-description',
+            tools=tools,
+            llm=llm,
+            verbose=True,
+            max_iterations=3,
+            early_stopping_method='generate',
+            memory=conversational_memory,
+        )
 
-    conversation_history = user_conversations[user_id]
+    user_agent = user_conversations[user_id]
 
     try:
-        # Append user input to conversation history
-        conversation_history.append(text)
-
-        # Generate response using the conversation history
-        response = agent(chat_prompt.format_prompt(input="\n".join(conversation_history)).to_string())['output']
-
-        # Append agent response to conversation history
-        conversation_history.append(response)
+        response = user_agent(chat_prompt.format_prompt(input=text).to_string())['output']
 
         return response
     except Exception as e:
